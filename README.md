@@ -75,22 +75,13 @@ Cyclistic-Bike-Share-Analysis/
 ├── SQL/
 │   └── cyclistic_analysis.sql
 │
-├── Data/
-│   └── summary_files/
-│       ├── member_summary.csv
-│       ├── weekday_summary.csv
-│       ├── hour_summary.csv
-│       ├── month_summary.csv
-│       ├── bike_summary.csv
-│       └── station_summary.csv
-│
 ├── Tableau/
 │   └── README.md
 │
+├── Data/
+│   └── README.md
+│
 └── Screenshots/
-    ├── dashboard_overview.png
-    └── insights_recommendations.png
-
 ```
 ## Conclusion
 
