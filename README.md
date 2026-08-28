@@ -67,7 +67,6 @@ Insights & Recommendations
 
 ## Project Structure
 
-```
 Cyclistic-Bike-Share-Analysis/
 │
 ├── README.md
@@ -90,7 +89,7 @@ Cyclistic-Bike-Share-Analysis/
 └── Screenshots/
     ├── dashboard_overview.png
     └── insights_recommendations.png
-    ```
+  
 
 ## Conclusion
 
