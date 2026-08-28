@@ -1,38 +1,43 @@
-## PART 1: ROW DATA
+-- =====================================================
+-- CYCLISTIC BIKE-SHARE USER BEHAVIOR ANALYSIS
+-- Data period: January–December 2025
+-- Tool: MySQL
+-- =====================================================
 
-use cyclistic;
+
+-- =====================================================
+-- 1. DATA PREPARATION
+-- =====================================================
+
+USE cyclistic;
 
 -- Check the raw master table
-
 SELECT COUNT(*) AS total_rows
 FROM cyclistic_trips_raw;
 
-
--- Check the structure
+-- Check the structure of the raw table
 DESCRIBE cyclistic_trips_raw;
 
 
+-- =====================================================
+-- 2. DATA CLEANING
+-- =====================================================
 
-## PART 2: DATA VALIDATION
-
-
---  check the membership categories:
+-- Check membership categories
 SELECT
     member_casual,
     COUNT(*) AS rides
 FROM cyclistic_trips_raw
 GROUP BY member_casual;
 
-
--- check the bike types
-
-SELECT rideable_type, 
-COUNT(*) AS rides
+-- Check bike types
+SELECT
+    rideable_type,
+    COUNT(*) AS rides
 FROM cyclistic_trips_raw
 GROUP BY rideable_type;
 
 -- Check missing values
-
 SELECT
     SUM(ride_id IS NULL OR ride_id = '') AS missing_ride_id,
     SUM(rideable_type IS NULL OR rideable_type = '') AS missing_rideable_type,
@@ -43,18 +48,13 @@ SELECT
     SUM(member_casual IS NULL OR member_casual = '') AS missing_member_casual
 FROM cyclistic_trips_raw;
 
-
-## PART 3: CHECK RIDE DURATIONS
-
--- Check invalid rides
+-- Check invalid ride durations
 SELECT COUNT(*) AS invalid_duration_rows
 FROM cyclistic_trips_raw
 WHERE STR_TO_DATE(started_at, '%Y-%m-%d %H:%i:%s.%f')
     >= STR_TO_DATE(ended_at, '%Y-%m-%d %H:%i:%s.%f');
 
-
--- Find minimum and maximum duration
-
+-- Find minimum and maximum ride duration
 SELECT
     MIN(
         TIMESTAMPDIFF(
@@ -71,12 +71,9 @@ SELECT
             STR_TO_DATE(ended_at, '%Y-%m-%d %H:%i:%s.%f')
         )
     ) AS max_seconds
-
 FROM cyclistic_trips_raw;
 
-
 -- Check rides under 1 minute and over 24 hours
-
 SELECT
     SUM(
         TIMESTAMPDIFF(
@@ -93,11 +90,12 @@ SELECT
             STR_TO_DATE(ended_at, '%Y-%m-%d %H:%i:%s.%f')
         ) > 86400
     ) AS over_24_hours
-
 FROM cyclistic_trips_raw;
 
 
-## PART 4: CREATE CLEAN DATA
+-- =====================================================
+-- 3. DATA TRANSFORMATION
+-- =====================================================
 
 DROP TABLE IF EXISTS cyclistic_trips_clean;
 
@@ -128,6 +126,7 @@ SELECT
 
     member_casual,
 
+    -- Ride duration in minutes
     TIMESTAMPDIFF(
         SECOND,
         STR_TO_DATE(
@@ -140,6 +139,7 @@ SELECT
         )
     ) / 60.0 AS ride_length_minutes,
 
+    -- Date and time dimensions
     DATE(
         STR_TO_DATE(
             started_at,
@@ -170,52 +170,36 @@ SELECT
 
 FROM cyclistic_trips_raw
 
+-- Keep rides between 1 minute and 24 hours
 WHERE TIMESTAMPDIFF(
         SECOND,
-        STR_TO_DATE(
-            started_at,
-            '%Y-%m-%d %H:%i:%s.%f'
-        ),
-        STR_TO_DATE(
-            ended_at,
-            '%Y-%m-%d %H:%i:%s.%f'
-        )
+        STR_TO_DATE(started_at, '%Y-%m-%d %H:%i:%s.%f'),
+        STR_TO_DATE(ended_at, '%Y-%m-%d %H:%i:%s.%f')
       ) >= 60
 
   AND TIMESTAMPDIFF(
         SECOND,
-        STR_TO_DATE(
-            started_at,
-            '%Y-%m-%d %H:%i:%s.%f'
-        ),
-        STR_TO_DATE(
-            ended_at,
-            '%Y-%m-%d %H:%i:%s.%f'
-        )
+        STR_TO_DATE(started_at, '%Y-%m-%d %H:%i:%s.%f'),
+        STR_TO_DATE(ended_at, '%Y-%m-%d %H:%i:%s.%f')
       ) <= 86400;
 
 
 -- Verify cleaned data
-
 SELECT COUNT(*) AS clean_rows
 FROM cyclistic_trips_clean;
 
 -- Verify no invalid durations remain
-
 SELECT
     SUM(ride_length_minutes < 1) AS under_1_minute,
     SUM(ride_length_minutes > 1440) AS over_24_hours
 FROM cyclistic_trips_clean;
 
 
-----------------------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
+-- =====================================================
+-- 4. MEMBER VS. CASUAL ANALYSIS
+-- =====================================================
 
-## PART 5: MAIN ANALYSIS
-
--- How does annual riding behavior differ between Cyclistic members and casual riders?
-
-
+-- Compare overall riding behavior
 SELECT
     member_casual,
     COUNT(*) AS total_rides,
@@ -225,65 +209,12 @@ SELECT
 FROM cyclistic_trips_clean
 GROUP BY member_casual;
 
--- Casual riders have much longer rides.
--- Member average: 12.13 minutes
--- Casual average: 19.88 minutes
--- Casual riders use the service less frequently, but their individual rides tend to be substantially longer. That suggests casual riders may represent an opportunity for membership conversion.
 
+-- =====================================================
+-- 5. MONTHLY ANALYSIS
+-- =====================================================
 
-## PART 6: WEEKDAY ANALYSIS
-
--- which days casual and member riders use the bikes most.
-
-SELECT
-    member_casual,
-    weekday,
-    COUNT(*) AS total_rides,
-    ROUND(AVG(ride_length_minutes), 2) AS avg_ride_minutes
-FROM cyclistic_trips_clean
-GROUP BY member_casual, weekday
-ORDER BY
-    member_casual,
-    FIELD(
-        weekday,
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-        'Sunday'
-    );
-
--- Members tend to ride more frequently during weekdays, while casual riders are much more active on weekends and take longer rides.
-
--- Casual riders may be more likely to consider membership if marketing targets their weekend riding habits. 
-##  For example, Cyclistic could test:
--- Weekend membership promotions
--- "Ride more, save more" membership campaigns
--- Offers shown after several weekend rides
--- Membership messaging on Friday–Sunday
--- Campaigns emphasizing the benefits of unlimited/regular riding
-
-
-
-## PART 7: HOURLY ANALYSIS
-
-SELECT
-    member_casual,
-    hour,
-    COUNT(*) AS total_rides,
-    ROUND(AVG(ride_length_minutes), 2) AS avg_ride_minutes
-FROM cyclistic_trips_clean
-GROUP BY member_casual, hour
-ORDER BY member_casual, hour;
-
--- Members appear to use Cyclistic more frequently during weekday/commuting-oriented periods, while casual riders show stronger leisure-oriented usage, particularly later in the day and on weekends.
-
-
-## PART 8: MONTHLY ANALYSIS
--- Are casual riders more active during particular months/seasons than members?
-
+-- Compare riding patterns by month
 SELECT
     member_casual,
     month,
@@ -309,12 +240,53 @@ ORDER BY
         'December'
     );
 
--- Casual riders show a much stronger seasonal pattern, with their usage increasing dramatically during spring and summer.
--- This suggests casual riders may be using Cyclistic more for leisure/recreational trips, whereas members appear to use the service more regularly throughout the year.
+
+-- =====================================================
+-- 6. WEEKDAY ANALYSIS
+-- =====================================================
+
+-- Compare riding patterns by day of week
+SELECT
+    member_casual,
+    weekday,
+    COUNT(*) AS total_rides,
+    ROUND(AVG(ride_length_minutes), 2) AS avg_ride_minutes
+FROM cyclistic_trips_clean
+GROUP BY member_casual, weekday
+ORDER BY
+    member_casual,
+    FIELD(
+        weekday,
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+    );
 
 
-## PART 9: BIKE TYPE ANALYSIS
+-- =====================================================
+-- 7. HOURLY ANALYSIS
+-- =====================================================
 
+-- Compare riding patterns by hour
+SELECT
+    member_casual,
+    hour,
+    COUNT(*) AS total_rides,
+    ROUND(AVG(ride_length_minutes), 2) AS avg_ride_minutes
+FROM cyclistic_trips_clean
+GROUP BY member_casual, hour
+ORDER BY member_casual, hour;
+
+
+-- =====================================================
+-- 8. BIKE TYPE ANALYSIS
+-- =====================================================
+
+-- Compare bike type usage by rider type
 SELECT
     member_casual,
     rideable_type,
@@ -324,4 +296,4 @@ FROM cyclistic_trips_clean
 GROUP BY member_casual, rideable_type
 ORDER BY member_casual, total_rides DESC;
 
-
+-- ====================================================
