@@ -67,6 +67,7 @@ Insights & Recommendations
 
 ## Project Structure
 
+```text
 Cyclistic-Bike-Share-Analysis/
 │
 ├── README.md
@@ -89,8 +90,8 @@ Cyclistic-Bike-Share-Analysis/
 └── Screenshots/
     ├── dashboard_overview.png
     └── insights_recommendations.png
-  
 
+```
 ## Conclusion
 
 The analysis shows clear differences between member and casual rider behavior. Members generate more rides overall, while casual riders tend to take longer trips and show stronger weekend usage. These patterns provide opportunities for targeted membership campaigns and improved bike availability during periods of high demand.
