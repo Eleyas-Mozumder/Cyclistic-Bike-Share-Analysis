@@ -174,6 +174,17 @@ Cyclistic-Bike-Share-Analysis/
 ```
 
 ---
+---
+
+## Author
+
+**Eleyas Mozumder**
+
+M.Sc. Economics | Data Analytics
+
+Interested in Data Analyst, Business Analyst and Business Intelligence roles.
+
+[LinkedIn](https://www.linkedin.com/in/eleyas-mozumder-063179197/) · [GitHub](https://github.com/Eleyas-Mozumder)
 
 ## Conclusion
 
