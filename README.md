@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project analyzes 12 months of Cyclistic bike-share trip data from January to December 2025 to understand differences in usage patterns between annual members and casual riders.
+This project analyzes 12 months of Cyclistic bike-share trip data from **January to December 2025** to understand differences in usage patterns between annual members and casual riders.
 
 The analysis was performed using **MySQL** for data cleaning and analysis and **Tableau** for data visualization and dashboard development.
 
@@ -21,12 +21,13 @@ The analysis was performed using **MySQL** for data cleaning and analysis and **
 
 ## Key Findings
 
-- **3.51M member rides** compared with **1.93M casual rides**.
-- Casual riders have a higher average ride duration: **19.88 minutes vs. 12.13 minutes** for members.
-- Ride activity is highest during the **summer months**.
-- Casual riders show stronger usage on **weekends**.
-- Ride demand increases during **morning and evening peak hours**.
-- **Electric bikes** have high usage among both rider groups.
+- **5.44M total rides** were analyzed.
+- **Members generated 3.51M rides**, compared with **1.93M casual rides**.
+- Casual riders had a higher average ride duration: **19.88 minutes**, compared with **12.13 minutes** for members.
+- Ride activity was strongest during the **summer months**.
+- Casual riders showed stronger usage on **weekends**.
+- Ride demand increased during **morning and evening peak hours**.
+- **Electric bikes** showed strong usage among both rider groups.
 
 ---
 
@@ -36,7 +37,7 @@ The analysis was performed using **MySQL** for data cleaning and analysis and **
    Target frequent casual riders with membership promotions and incentives.
 
 2. **Focus on weekend usage**  
-   Develop campaigns specifically targeting casual riders who ride on weekends.
+   Develop campaigns specifically for casual riders who frequently ride on weekends.
 
 3. **Optimize peak-hour availability**  
    Ensure sufficient bike availability during morning and evening demand peaks.
@@ -46,12 +47,69 @@ The analysis was performed using **MySQL** for data cleaning and analysis and **
 
 ---
 
+## Data & Methodology
+
+### Dataset
+
+The analysis uses 12 months of Cyclistic bike-share trip data covering:
+
+**January 2025 – December 2025**
+
+The dataset contains individual trip records including:
+
+- Ride ID
+- Bike type
+- Start and end timestamps
+- Start and end stations
+- Start and end coordinates
+- Rider type (member or casual)
+
+### Data Preparation
+
+The raw monthly datasets were combined and imported into MySQL.
+
+The analysis followed these steps:
+
+1. **Data validation**
+   - Checked total record counts
+   - Reviewed rider categories and bike types
+   - Checked important fields for missing values
+   - Identified invalid ride durations
+
+2. **Data cleaning**
+   - Converted timestamp fields to `DATETIME`
+   - Removed rides shorter than 1 minute
+   - Removed rides longer than 24 hours
+   - Performed post-cleaning quality checks
+
+3. **Data transformation**
+   - Calculated ride duration in minutes
+   - Created ride date
+   - Extracted month
+   - Extracted weekday
+   - Extracted hour of day
+
+4. **SQL analysis**
+   - Compared member and casual riders
+   - Analyzed monthly trends
+   - Analyzed weekday patterns
+   - Analyzed hourly demand
+   - Compared bike type usage
+
+5. **Visualization**
+   - Created summary datasets from the SQL analysis
+   - Built an interactive Tableau dashboard
+
+---
+
 ## Project Workflow
 
 ```text
 Raw Trip Data
       ↓
-Data Cleaning & Transformation
+Data Validation & Cleaning
+      ↓
+Data Transformation
       ↓
 MySQL Analysis
       ↓
@@ -68,7 +126,7 @@ Insights & Recommendations
 
 | Tool | Purpose |
 |---|---|
-| **MySQL** | Data cleaning, transformation and analysis |
+| **MySQL** | Data cleaning, transformation and SQL analysis |
 | **Tableau Public** | Data visualization and dashboard development |
 | **Excel / CSV** | Data preparation and summary datasets |
 
@@ -76,17 +134,19 @@ Insights & Recommendations
 
 ## Tableau Dashboard
 
-View the interactive dashboard on Tableau Public:
+The interactive dashboard presents the main findings from the analysis, including rider type, ride duration, monthly patterns, weekday patterns, hourly usage and bike type usage.
 
-**[Cyclistic Bike-Share User Behavior Analysis](https://public.tableau.com/app/profile/eleyas.mozumder/viz/Book1_17876330302320/CyclisticBike-ShareUserBehaviorAnalysis)**
+### Interactive Dashboard
+
+[View the interactive Tableau dashboard on Tableau Public](https://public.tableau.com/app/profile/eleyas.mozumder/viz/Book1_17876330302320/CyclisticBike-ShareUserBehaviorAnalysis)
 
 ### Dashboard Preview
 
-![Cyclistic Bike-Share Dashboard](Screenshots/dashboard_overview.png)
+![Cyclistic Bike-Share User Behavior Analysis](Screenshots/dashboard_overview.png)
 
 ---
 
-## Project Structure
+## Repository Structure
 
 ```text
 Cyclistic-Bike-Share-Analysis/
