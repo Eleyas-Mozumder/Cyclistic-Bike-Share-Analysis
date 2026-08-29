@@ -4,7 +4,9 @@
 
 This project analyzes 12 months of Cyclistic bike-share trip data from January to December 2025 to understand differences in usage patterns between annual members and casual riders.
 
-The analysis was performed using **MySQL** for data cleaning and analysis and **Tableau** for interactive data visualization and dashboard development.
+The analysis was performed using **MySQL** for data cleaning and analysis and **Tableau** for data visualization and dashboard development.
+
+---
 
 ## Business Questions
 
@@ -15,74 +17,46 @@ The analysis was performed using **MySQL** for data cleaning and analysis and **
 - Which bike types are most popular among each rider group?
 - How can Cyclistic increase membership among casual riders?
 
+---
+
 ## Key Findings
 
-- Members generated **3.51M rides**, compared with **1.93M casual rides**.
-- Casual riders had a longer average ride duration: **19.88 minutes** vs. **12.13 minutes** for members.
-- Ride activity was highest during the summer months, particularly July–September.
-- Casual riding activity was stronger on weekends, especially Saturday and Sunday.
-- Ride demand increased strongly during morning and evening peak hours.
-- Electric bikes showed high usage among both rider groups, particularly members.
+- **3.51M member rides** compared with **1.93M casual rides**.
+- Casual riders have a higher average ride duration: **19.88 minutes vs. 12.13 minutes** for members.
+- Ride activity is highest during the **summer months**.
+- Casual riders show stronger usage on **weekends**.
+- Ride demand increases during **morning and evening peak hours**.
+- **Electric bikes** have high usage among both rider groups.
+
+---
 
 ## Recommendations
 
 1. **Convert casual riders into members**  
-   Use weekend and day-pass promotions combined with membership incentives.
+   Target frequent casual riders with membership promotions and incentives.
 
-2. **Target peak demand**  
-   Ensure sufficient bike availability during morning and evening peak periods.
+2. **Focus on weekend usage**  
+   Develop campaigns specifically targeting casual riders who ride on weekends.
 
-3. **Focus on weekend casual riders**  
-   Develop targeted campaigns for casual riders who frequently ride on weekends.
+3. **Optimize peak-hour availability**  
+   Ensure sufficient bike availability during morning and evening demand peaks.
 
 4. **Promote electric bikes**  
-   Increase availability and highlight the convenience of electric bikes.
+   Highlight electric bikes and maintain sufficient availability based on their strong usage.
 
-## Tools & Technologies
-
-- **MySQL** — Data cleaning, transformation and SQL analysis
-- **Tableau Public** — Data visualization and dashboard development
-- **Excel/CSV** — Data preparation and summary outputs
+---
 
 ## Project Workflow
 
 ```text
 Raw Trip Data
-     ↓
+      ↓
 Data Cleaning & Transformation
-     ↓
+      ↓
 MySQL Analysis
-     ↓
-Summary Tables
-     ↓
+      ↓
+Summary Datasets
+      ↓
 Tableau Visualization
-     ↓
+      ↓
 Insights & Recommendations
-
-```
-
-## Tableau Dashboard
-
-[View the interactive Tableau dashboard](https://public.tableau.com/app/profile/eleyas.mozumder/viz/Book1_17876330302320/CyclisticBike-ShareUserBehaviorAnalysis)
-
-## Project Structure
-
-```text
-Cyclistic-Bike-Share-Analysis/
-│
-├── README.md
-│
-├── SQL/
-│   └── cyclistic_analysis.sql
-│
-├── Tableau/
-│   └── README.md
-│
-├── Data/
-│   └── README.md
-│
-└── Screenshots/
-```
-## Conclusion
-
-The analysis shows clear differences between member and casual rider behavior. Members generate more rides overall, while casual riders tend to take longer trips and show stronger weekend usage. These patterns provide opportunities for targeted membership campaigns and improved bike availability during periods of high demand.
