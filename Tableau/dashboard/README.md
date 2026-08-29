@@ -33,3 +33,23 @@ The dashboard analyzes:
 - Focus campaigns on frequent weekend casual riders.
 - Maintain sufficient bike availability during peak hours.
 - Promote electric bikes based on their strong usage.
+---
+
+## Tableau Dashboard
+
+The interactive Tableau dashboard provides an overview of rider behavior, including:
+
+- Total rides by rider type
+- Average ride duration
+- Monthly ride trends
+- Weekly ride patterns
+- Hourly ride patterns
+- Bike type usage
+
+### Interactive Dashboard
+
+[View the interactive Tableau dashboard](https://public.tableau.com/app/profile/eleyas.mozumder/viz/Book1_17876330302320/CyclisticBike-ShareUserBehaviorAnalysis)
+
+### Dashboard Preview
+
+![Cyclistic Dashboard](Screenshots/dashboard_overview.png)
