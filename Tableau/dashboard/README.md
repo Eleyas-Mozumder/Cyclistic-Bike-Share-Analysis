@@ -46,6 +46,60 @@ The interactive Tableau dashboard provides an overview of rider behavior, includ
 - Hourly ride patterns
 - Bike type usage
 
+---
+
+## Data & Methodology
+
+### Dataset
+
+The analysis uses 12 months of Cyclistic bike-share trip data covering:
+
+**January 2025 – December 2025**
+
+The dataset contains individual bike trip records, including:
+
+- Ride ID
+- Bike type
+- Start and end timestamps
+- Start and end stations
+- Start and end coordinates
+- Rider type (member or casual)
+
+### Data Preparation
+
+The raw monthly datasets were combined and imported into MySQL for processing.
+
+The analysis followed these steps:
+
+1. **Data validation**
+   - Checked total record counts
+   - Reviewed rider categories and bike types
+   - Checked important fields for missing values
+   - Identified invalid ride durations
+
+2. **Data cleaning**
+   - Converted timestamp fields from text to `DATETIME`
+   - Removed rides shorter than 1 minute
+   - Removed rides longer than 24 hours
+   - Checked data quality after cleaning
+
+3. **Data transformation**
+   - Calculated ride duration in minutes
+   - Created ride date
+   - Extracted month
+   - Extracted weekday
+   - Extracted hour of day
+
+4. **SQL analysis**
+   - Compared member and casual riders
+   - Analyzed monthly trends
+   - Analyzed weekday patterns
+   - Analyzed hourly demand
+   - Compared bike type usage
+
+5. **Visualization**
+   - Created summary datasets from the SQL analysis
+   - Built an interactive Tableau dashboard to communicate the findings
 ### Interactive Dashboard
 
 [View the interactive Tableau dashboard](https://public.tableau.com/app/profile/eleyas.mozumder/viz/Book1_17876330302320/CyclisticBike-ShareUserBehaviorAnalysis)
