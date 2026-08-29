@@ -421,3 +421,6 @@ ORDER BY
 -- ============================================================
 -- END OF ANALYSIS
 -- ============================================================
+-- Key analytical outputs from this script were used to create
+-- summary datasets for Tableau visualization.
+-- ============================================================
