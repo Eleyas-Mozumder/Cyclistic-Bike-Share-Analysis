@@ -60,3 +60,61 @@ Summary Datasets
 Tableau Visualization
       ↓
 Insights & Recommendations
+```
+
+---
+
+## Tools & Technologies
+
+| Tool | Purpose |
+|---|---|
+| **MySQL** | Data cleaning, transformation and analysis |
+| **Tableau Public** | Data visualization and dashboard development |
+| **Excel / CSV** | Data preparation and summary datasets |
+
+---
+
+## Tableau Dashboard
+
+View the interactive dashboard on Tableau Public:
+
+**[Cyclistic Bike-Share User Behavior Analysis](https://public.tableau.com/app/profile/eleyas.mozumder/viz/Book1_17876330302320/CyclisticBike-ShareUserBehaviorAnalysis)**
+
+### Dashboard Preview
+
+![Cyclistic Bike-Share Dashboard](Screenshots/dashboard_overview.png)
+
+---
+
+## Project Structure
+
+```text
+Cyclistic-Bike-Share-Analysis/
+│
+├── README.md
+│
+├── SQL/
+│   └── cyclistic_analysis.sql
+│
+├── Data/
+│   └── summary_files/
+│       ├── Cyclistic_Bike_Summary.csv
+│       ├── Cyclistic_Hour_Summary.csv
+│       ├── Cyclistic_Member_Summary.csv
+│       ├── Cyclistic_Month_Summary.csv
+│       ├── Cyclistic_Station_Summary.csv
+│       └── Cyclistic_Weekday_Summary.csv
+│
+├── Tableau/
+│   └── dashboard/
+│       └── README.md
+│
+└── Screenshots/
+    └── dashboard_overview.png
+```
+
+---
+
+## Conclusion
+
+The analysis shows clear differences between member and casual rider behavior. Members generate more rides overall, while casual riders take longer trips and show stronger weekend usage. These patterns provide opportunities for targeted membership campaigns and improved bike availability during high-demand periods.
